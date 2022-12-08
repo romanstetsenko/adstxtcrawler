@@ -1,9 +1,12 @@
 open System
 open System.Net
 
-#r "System.Transactions"
-#r @"packages\System.Data.SQLite.Core\lib\net451\System.Data.SQLite.dll"
-#r @"./packages/Hopac/lib/net471/Hopac.dll"
+
+#r "nuget: Hopac"
+#r "nuget: System.Data.SQLite"
+// #r "System.Transactions"
+// #r @"packages\System.Data.SQLite.Core\lib\net451\System.Data.SQLite.dll"
+// #r @"./packages/Hopac/lib/net471/Hopac.dll"
 
 let currentDirectory = __SOURCE_DIRECTORY__
 
