@@ -31,7 +31,7 @@ type SQLiteCommand with
 
 type String with
     static member trim (s : string) = s.Trim()
-    static member startsWith value (s : string) = s.StartsWith value
+    static member startsWith (value:string) (s : string) = s.StartsWith value
     static member split (separator : char) (s : string) = s.Split(separator)
     static member join (separator : string) (strings : string []) =
         String.Join(separator, strings)
@@ -41,7 +41,7 @@ let createConnectionTo databaseFilename =
     match File.Exists path with
     | false -> SQLiteConnection.CreateFile(path)
     | true -> ()
-    new SQLiteConnection(sprintf "Data Source=%s;Version=3;" path)
+    new SQLiteConnection $"Data Source=%s{path};Version=3;"
 
 let createTableAdsTxt = """
 CREATE TABLE IF NOT EXISTS AdsTxt(
@@ -76,7 +76,7 @@ let insertCommand connection x =
         |> List.fold SQLiteCommand.addWithValue command
         |> SQLiteCommand.executeNonQuery
         |> Ok
-    with e -> Error(sprintf "Cannot insert: %A. Reason: %s" x e.Message)
+    with e -> Error $"Cannot insert: %A{x}. Reason: %s{e.Message}"
 
 let getContent domain =
     async { 
